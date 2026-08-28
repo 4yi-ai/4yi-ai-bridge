@@ -1,0 +1,55 @@
+name: Bug report
+description: Report a reproducible problem with the public CLI or connection flow
+title: "[Bug]: "
+labels: [bug, triage]
+body:
+  - type: markdown
+    attributes:
+      value: Do not include API keys, tokens, private prompts, customer data, or unredacted logs.
+  - type: input
+    id: version
+    attributes:
+      label: 4YI CLI version
+      placeholder: Output of 4yi --version
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Operating system
+      options: [macOS, Windows, Linux, Other]
+    validations:
+      required: true
+  - type: dropdown
+    id: target
+    attributes:
+      label: Target application
+      options: [Claude Code, Codex, OpenCode, Other]
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+      description: Include the minimum commands and redact sensitive values.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety check
+      options:
+        - label: I removed credentials and sensitive data from this report.
+          required: true
