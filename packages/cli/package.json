@@ -1,6 +1,6 @@
 {
   "name": "@4yi/cli",
-  "version": "0.2.0",
+  "version": "0.2.0-beta.1",
   "description": "Securely connect Claude Code, Codex, and OpenCode to 4YI AI Bridge",
   "type": "module",
   "bin": {

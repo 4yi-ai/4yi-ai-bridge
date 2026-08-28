@@ -10,7 +10,7 @@
 - [x] Cross-platform CI definition, security checks, examples, and npm release workflow
 - [ ] Verify CI in the real GitHub repository
 - [ ] Complete signed-off production end-to-end tests on fresh macOS, Windows, and Linux hosts
-- [ ] Publish `@4yi/cli` from the GitHub release workflow
+- [ ] Publish `@4yi/cli@0.2.0-beta.1` to the isolated npm `beta` channel from a GitHub prerelease
 
 ## Phase 2 — Local bridge daemon
 

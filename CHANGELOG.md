@@ -4,6 +4,8 @@ All notable public client changes are documented here. Versions follow semantic 
 
 ## [Unreleased]
 
+## [0.2.0-beta.1] - 2026-08-28
+
 ### Added
 
 - Public `@4yi/cli` source, tests, and npm package metadata.

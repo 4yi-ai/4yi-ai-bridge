@@ -7,6 +7,9 @@ import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const entrypoint = fileURLToPath(new URL("../bin/4yi.mjs", import.meta.url));
+const packageJson = JSON.parse(
+  fs.readFileSync(new URL("../package.json", import.meta.url), "utf8"),
+);
 
 function run(args, home) {
   return spawnSync(process.execPath, [entrypoint, ...args], {
@@ -24,7 +27,7 @@ test("CLI help and version are available without a session", () => {
     assert.match(help.stdout, /doctor \[--json\]/);
     const version = run(["--version"], home);
     assert.equal(version.status, 0);
-    assert.equal(version.stdout.trim(), "0.2.0");
+    assert.equal(version.stdout.trim(), packageJson.version);
   } finally {
     fs.rmSync(home, { recursive: true, force: true });
   }

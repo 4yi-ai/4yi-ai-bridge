@@ -26,10 +26,15 @@ jobs:
         run: |
           package_version="$(node -p "require('./packages/cli/package.json').version")"
           test "${GITHUB_REF_NAME}" = "v${package_version}"
+      - name: Select protected npm channel
+        id: channel
+        env:
+          RELEASE_PRERELEASE: ${{ github.event.release.prerelease }}
+        run: node scripts/release-policy.mjs
       - name: Pack release artifact
         run: mkdir artifacts && npm pack --workspace @4yi/cli --pack-destination artifacts
       - name: Publish to npm with provenance
-        run: npm publish --workspace @4yi/cli --provenance --access public
+        run: npm publish --workspace @4yi/cli --provenance --access public --tag "${{ steps.channel.outputs.npm_tag }}"
       - name: Attach package to GitHub release
         env:
           GH_TOKEN: ${{ github.token }}

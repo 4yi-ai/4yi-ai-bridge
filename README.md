@@ -40,6 +40,12 @@ npm install -g @4yi/cli
 4yi connect codex
 ```
 
+The command above installs the current stable release. During the `0.2.0` preview, invited testers can opt in without changing the stable npm channel:
+
+```bash
+npm install -g @4yi/cli@beta
+```
+
 The CLI checks the target application, backs up the existing configuration, and applies the 4YI connection. Restore your previous settings at any time:
 
 ```bash

@@ -7,6 +7,8 @@ npm install -g @4yi/cli
 4yi --version
 ```
 
+For an invited beta test, install `@4yi/cli@beta` explicitly. Existing stable users stay on npm `latest` unless they opt in.
+
 Node.js 20 or newer is required.
 
 ## Authentication

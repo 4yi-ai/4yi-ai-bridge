@@ -8,6 +8,8 @@ The 4YI CLI signs in through the 4YI web app and securely connects supported loc
 npm install -g @4yi/cli
 ```
 
+Invited beta testers can opt in with `npm install -g @4yi/cli@beta`. The beta channel never replaces the normal `latest` installation automatically.
+
 Node.js 20 or newer is required.
 
 ## Quick start

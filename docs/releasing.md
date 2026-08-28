@@ -30,6 +30,11 @@ Do not add a long-lived npm token when Trusted Publishing is available.
 
 ## Publish
 
-Create a GitHub release whose tag exactly matches `v<packages/cli version>`, for example `v0.2.0`. Publishing the release runs the protected workflow, verifies the tag, runs the complete check suite, publishes npm provenance, and attaches the tarball.
+Create a GitHub release whose tag exactly matches `v<packages/cli version>`.
+
+- For a beta such as `v0.2.0-beta.1`, mark the GitHub Release as a prerelease. The workflow rejects a normal release and publishes only to the npm `beta` tag.
+- For a stable version such as `v0.2.0`, create a normal GitHub Release. The workflow rejects a prerelease and publishes to the npm `latest` tag.
+
+Publishing the release runs the protected workflow, verifies the tag, runs the complete check suite, publishes npm provenance, and attaches the tarball. Never promote a beta by changing the npm tag manually; prepare and verify a stable package version instead.
 
 If any step fails, fix it through a pull request. Do not bypass the release environment or publish a different working tree manually.

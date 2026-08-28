@@ -1,6 +1,6 @@
 {
   "name": "4yi-ai-bridge",
-  "version": "0.2.0",
+  "version": "0.2.0-beta.1",
   "private": true,
   "description": "Public clients, adapters, examples, and documentation for 4YI AI Bridge",
   "workspaces": [
@@ -10,7 +10,7 @@
     "check": "npm run check:public-boundary && npm run check:marketing && npm test && npm run smoke:cli && npm run pack:dry",
     "check:public-boundary": "node scripts/check-public-boundary.mjs",
     "check:marketing": "node scripts/check-marketing-claims.mjs",
-    "test": "npm test --workspace @4yi/cli",
+    "test": "npm run test:cli && node --test scripts/test/*.test.mjs",
     "test:cli": "npm test --workspace @4yi/cli",
     "smoke:cli": "npm run smoke --workspace @4yi/cli",
     "pack:dry": "npm run pack:dry --workspace @4yi/cli"

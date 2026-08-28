@@ -51,3 +51,28 @@ test("preferred model round-trips and preserves the rest of the config", () => {
     fs.rmSync(home, { recursive: true, force: true });
   }
 });
+
+test("a 0.1.10 config remains readable and intact after a 0.2 beta write", () => {
+  const home = fs.mkdtempSync(path.join(os.tmpdir(), "fouryi-upgrade-"));
+  const legacy = {
+    baseUrl: "https://app.4yi.ai",
+    token: "xck-existing-session",
+    org: { id: "org_legacy", name: "Existing organization" },
+    user: { email: "existing@example.com" },
+    preferred_model: "claude.sonnet",
+  };
+  try {
+    fs.mkdirSync(path.join(home, ".4yi"), { recursive: true });
+    fs.writeFileSync(
+      path.join(home, ".4yi", "config.json"),
+      `${JSON.stringify(legacy, null, 2)}\n`,
+      { mode: 0o600 },
+    );
+
+    assert.deepEqual(readConfig(home), legacy);
+    setPreferredModel("gpt-5.6", home);
+    assert.deepEqual(readConfig(home), { ...legacy, preferred_model: "gpt-5.6" });
+  } finally {
+    fs.rmSync(home, { recursive: true, force: true });
+  }
+});
