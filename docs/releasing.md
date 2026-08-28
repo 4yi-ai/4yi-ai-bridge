@@ -24,9 +24,15 @@ Do not add a long-lived npm token when Trusted Publishing is available.
    npm run check
    ```
 
-4. Test installation from a packed tarball on fresh macOS, Windows, and Linux environments.
-5. Verify `login`, `whoami`, `connect --dry-run`, `connect`, `status`, `restore`, `doctor`, and `code` against the intended production service.
-6. Merge through a reviewed pull request.
+4. Run the npm 12 OpenCode installation gate with Node.js 24.15.0 and npm 12.0.2:
+
+   ```bash
+   npm run test:npm12-opencode
+   ```
+
+5. Test installation from a packed tarball on fresh macOS, Windows, and Linux environments.
+6. Verify `login`, `whoami`, `connect --dry-run`, `connect`, `status`, `restore`, `doctor`, and `code` against the intended production service.
+7. Merge through a reviewed pull request.
 
 ## Publish
 

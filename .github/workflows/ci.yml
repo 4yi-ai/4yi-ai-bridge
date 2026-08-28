@@ -61,3 +61,16 @@ jobs:
       - run: npm ci
       - run: npm run check:public-boundary
       - run: npm run check:marketing
+
+  npm12-opencode:
+    name: npm 12 · OpenCode install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.15.0
+          cache: npm
+      - run: npm install --global npm@12.0.2
+      - run: npm ci
+      - run: npm run test:npm12-opencode
