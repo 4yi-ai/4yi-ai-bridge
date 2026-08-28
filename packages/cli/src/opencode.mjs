@@ -9,6 +9,7 @@ const OPENCODE_VERSION = "1.18.25";
 const OPENAI_COMPATIBLE_VERSION = "3.0.39";
 const DEFAULT_OPENCODE_PACKAGE = `opencode-ai@${OPENCODE_VERSION}`;
 const OPENAI_COMPATIBLE_PACKAGE = `@ai-sdk/openai-compatible@${OPENAI_COMPATIBLE_VERSION}`;
+const TRUSTED_OPENCODE_INSTALL_SCRIPT = `opencode-ai@${OPENCODE_VERSION}`;
 const DEFAULT_CONTEXT_LIMIT = 200000;
 const DEFAULT_OUTPUT_LIMIT = 8192;
 
@@ -100,17 +101,24 @@ export function opencodeEnv({ home = os.homedir(), token, orgId = "", configFile
 export function ensureOpenCodeRuntime({ home = os.homedir(), stdout = console.log, spawn = spawnSync, env = process.env } = {}) {
   const paths = pathsForHome(home);
   ensureDir(paths.opencodeDir);
-  if (!fs.existsSync(paths.opencodePackageFile)) {
-    fs.writeFileSync(paths.opencodePackageFile, JSON.stringify({
+  const packageJson = fs.existsSync(paths.opencodePackageFile)
+    ? JSON.parse(fs.readFileSync(paths.opencodePackageFile, "utf8"))
+    : {
       private: true,
       type: "module",
       dependencies: {},
-    }, null, 2));
+    };
+  const installScriptTrusted = packageJson.allowScripts?.[TRUSTED_OPENCODE_INSTALL_SCRIPT] === true;
+  if (!installScriptTrusted) {
+    packageJson.allowScripts = {
+      ...(packageJson.allowScripts || {}),
+      [TRUSTED_OPENCODE_INSTALL_SCRIPT]: true,
+    };
+    fs.writeFileSync(paths.opencodePackageFile, `${JSON.stringify(packageJson, null, 2)}\n`);
   }
 
   const bin = path.join(paths.opencodeDir, "node_modules", ".bin", process.platform === "win32" ? "opencode.cmd" : "opencode");
   const opencodePackage = env.FOURYI_OPENCODE_PACKAGE || DEFAULT_OPENCODE_PACKAGE;
-  const packageJson = JSON.parse(fs.readFileSync(paths.opencodePackageFile, "utf8"));
   const usesDefaultRuntime = opencodePackage === DEFAULT_OPENCODE_PACKAGE;
   const runtimeCurrent = fs.existsSync(bin)
     && (!usesDefaultRuntime || (

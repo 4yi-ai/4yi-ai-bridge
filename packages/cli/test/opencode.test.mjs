@@ -136,6 +136,8 @@ test("ensureOpenCodeRuntime installs exact compatible versions", () => {
     const paths = pathsForHome(home);
     const calls = [];
     const spawn = (command, args) => {
+      const packageJson = JSON.parse(fs.readFileSync(paths.opencodePackageFile, "utf8"));
+      assert.deepEqual(packageJson.allowScripts, { "opencode-ai@1.18.25": true });
       calls.push([command, ...args]);
       const bin = path.join(paths.opencodeDir, "node_modules", ".bin", process.platform === "win32" ? "opencode.cmd" : "opencode");
       fs.mkdirSync(path.dirname(bin), { recursive: true });
@@ -167,6 +169,37 @@ test("ensureOpenCodeRuntime keeps an already compatible runtime", () => {
     let installed = false;
     assert.equal(ensureOpenCodeRuntime({ home, spawn: () => { installed = true; return { status: 0 }; }, stdout: () => {} }), bin);
     assert.equal(installed, false);
+    const packageJson = JSON.parse(fs.readFileSync(paths.opencodePackageFile, "utf8"));
+    assert.deepEqual(packageJson.allowScripts, { "opencode-ai@1.18.25": true });
+  } finally {
+    fs.rmSync(home, { recursive: true, force: true });
+  }
+});
+
+test("ensureOpenCodeRuntime preserves existing npm script approvals", () => {
+  const home = fs.mkdtempSync(path.join(os.tmpdir(), "fouryi-opencode-approvals-"));
+  try {
+    const paths = pathsForHome(home);
+    fs.mkdirSync(path.dirname(paths.opencodePackageFile), { recursive: true });
+    fs.writeFileSync(paths.opencodePackageFile, JSON.stringify({
+      private: true,
+      allowScripts: { "existing-package@1.0.0": true },
+      dependencies: {},
+    }));
+    const spawn = () => {
+      const bin = path.join(paths.opencodeDir, "node_modules", ".bin", process.platform === "win32" ? "opencode.cmd" : "opencode");
+      fs.mkdirSync(path.dirname(bin), { recursive: true });
+      fs.writeFileSync(bin, "");
+      return { status: 0 };
+    };
+
+    ensureOpenCodeRuntime({ home, spawn, stdout: () => {} });
+
+    const packageJson = JSON.parse(fs.readFileSync(paths.opencodePackageFile, "utf8"));
+    assert.deepEqual(packageJson.allowScripts, {
+      "existing-package@1.0.0": true,
+      "opencode-ai@1.18.25": true,
+    });
   } finally {
     fs.rmSync(home, { recursive: true, force: true });
   }
