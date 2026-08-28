@@ -137,6 +137,48 @@ test("Codex helpers build a plan catalog and remove conflicting root assignments
   assert.match(cleaned, /\[features\]/);
 });
 
+test("Codex restore removes a catalog that did not exist before connect", async () => {
+  const home = tempHome();
+  const codexHome = path.join(home, ".codex");
+  const paths = connectionPaths({ home, codexHome });
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (url) => {
+    assert.match(String(url), /\/api\/cli\/models\?runtime=codex$/);
+    return jsonResponse({
+      default_model: "gpt-5.5",
+      models: [{ id: "gpt-5.5", display_name: "GPT 5.5" }],
+    });
+  };
+  const spawn = (command, args) => {
+    if (command === "codex" && args[0] === "debug") {
+      return { status: 0, stdout: JSON.stringify({ models: [{ slug: "gpt-5.5", display_name: "GPT 5.5" }] }) };
+    }
+    if (command === "codex") return { status: 0, stdout: "codex-cli 0.150.1" };
+    return { status: 1, stdout: "" };
+  };
+
+  try {
+    await connect({
+      target: "codex",
+      session: { baseUrl: "https://app.4yi.ai", token: "xck-testing" },
+      home,
+      codexHome,
+      stdout: () => {},
+      skipCheck: true,
+      tooling: { spawn, platform: "linux" },
+    });
+    assert.equal(fs.existsSync(paths.codexConfig), true);
+    assert.equal(fs.existsSync(paths.codexCatalog), true);
+
+    restoreConnection({ target: "codex", home, stdout: () => {} });
+    assert.equal(fs.existsSync(paths.codexConfig), false);
+    assert.equal(fs.existsSync(paths.codexCatalog), false);
+  } finally {
+    globalThis.fetch = originalFetch;
+    fs.rmSync(home, { recursive: true, force: true });
+  }
+});
+
 test("Codex preflight uses the native Codex request evidence required by Responses ingress", async () => {
   const originalFetch = globalThis.fetch;
   let captured;

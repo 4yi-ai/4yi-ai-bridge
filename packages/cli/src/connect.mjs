@@ -395,9 +395,11 @@ async function connectCodex({ session, home, codexHome, codexBaseUrl, stdout, sk
   ensureDir(path.dirname(paths.codexConfig));
   const template = parseBundledCatalog(tooling);
   const catalog = buildCodexCatalog(models, template);
+  const backupGroup = timestamp();
+  const configBackup = backupFile("codex", paths.codexConfig, home, backupGroup);
+  const catalogBackup = backupFile("codex", paths.codexCatalog, home, backupGroup);
   atomicWrite(paths.codexCatalog, `${JSON.stringify(catalog, null, 2)}\n`);
 
-  const backup = backupFile("codex", paths.codexConfig, home);
   let existing = fs.existsSync(paths.codexConfig) ? fs.readFileSync(paths.codexConfig, "utf8") : "";
   existing = removeManagedBlock(existing, CODEX_ROOT_START, CODEX_ROOT_END);
   existing = removeManagedBlock(existing, CODEX_PROVIDER_START, CODEX_PROVIDER_END);
@@ -407,7 +409,7 @@ async function connectCodex({ session, home, codexHome, codexBaseUrl, stdout, sk
   atomicWrite(paths.codexConfig, `${root}\n\n${existing ? `${existing}\n\n` : ""}${provider}\n`);
   stdout(`Connected Codex: ${paths.codexConfig}`);
   stdout(`Available Codex models: ${models.map((model) => model.id).join(", ")}`);
-  stdout(`Backup: ${backup}`);
+  stdout(`Backups: ${configBackup}, ${catalogBackup}`);
 }
 
 function resolveUrls(session, options) {

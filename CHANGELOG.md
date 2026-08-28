@@ -19,6 +19,10 @@ All notable public client changes are documented here. Versions follow semantic 
 
 - Aligned the CLI package with the repository MIT license.
 
+### Fixed
+
+- Restoring a first-time Codex connection now removes both the generated configuration and model catalog.
+
 ## [0.1.10] - 2026-08-28
 
 - Last CLI release before the source moved into the standalone public repository.
