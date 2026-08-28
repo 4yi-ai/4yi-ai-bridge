@@ -17,3 +17,10 @@ Do not include working credentials. We will acknowledge a valid report and coord
 ## Supported versions
 
 Security fixes are provided for the latest published CLI release. Upgrade to the latest version before reporting an issue that may already be resolved.
+
+## Client security model
+
+- Connection commands back up configuration before writing and support a non-mutating `--dry-run`.
+- The CLI uses owner-only file permissions where the operating system supports POSIX modes.
+- Runtime dependencies are pinned to versions tested with the current CLI release.
+- The future desktop app will use the operating system credential store rather than copying CLI token storage unchanged.

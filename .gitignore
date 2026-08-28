@@ -5,6 +5,12 @@ node_modules/
 !.env.example
 *.log
 coverage/
+__pycache__/
+*.pyc
 dist/
+*.tgz
+.4yi/
+.npm/
+.reports/
 .idea/
 .vscode/

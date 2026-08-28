@@ -17,4 +17,15 @@ Thank you for helping improve 4YI AI Bridge.
 - Do not include production configuration, internal service code, credentials, or customer data.
 - Run the relevant tests and document the result in the pull request.
 
+For CLI changes, run the complete public check before opening a pull request:
+
+```bash
+npm install
+npm run check
+```
+
+The public/private boundary check rejects known internal hostnames and common credential material. Passing it does not replace human review: inspect every new file before committing.
+
+All contributors must follow [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+
 By contributing, you agree that your contribution is licensed under the repository license.

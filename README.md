@@ -46,6 +46,15 @@ The CLI checks the target application, backs up the existing configuration, and 
 4yi restore all
 ```
 
+Preview every affected file without signing in, installing another CLI, or changing configuration:
+
+```bash
+4yi connect all --dry-run
+4yi doctor
+```
+
+See the complete [CLI reference](docs/cli.md) and [troubleshooting guide](docs/troubleshooting.md).
+
 ## Supported tools
 
 | Tool | Start command | What 4YI does |
@@ -85,6 +94,23 @@ flowchart LR
 
 The CLI and future desktop app are local clients. Authentication, usage controls, billing, and production model routing remain in the hosted 4YI service.
 
+## Repository contents
+
+| Path | Purpose |
+| --- | --- |
+| [`packages/cli`](packages/cli) | MIT-licensed `@4yi/cli` source and tests |
+| [`examples`](examples) | Curl, Python, and TypeScript API examples |
+| [`docs`](docs) | CLI, troubleshooting, and architecture documentation |
+| [`.github`](.github) | CI, security, release automation, and community templates |
+
+The hosted gateway, billing system, provider credentials, routing policy, fraud controls, customer data, and infrastructure configuration are intentionally not part of this repository.
+
+The endpoints used by public clients are summarized in the [public client/service contract](docs/service-contract.md).
+
+## API examples
+
+The hosted service exposes an OpenAI-compatible endpoint. Start with the [examples directory](examples) after creating an API key and selecting a model available to your account.
+
 ## Security and privacy
 
 - Browser-based sign-in avoids pasting a long-lived platform credential into the terminal.
@@ -96,6 +122,7 @@ See the 4YI service terms and privacy policy for hosted-service data handling. T
 
 ## Roadmap
 
+- [x] Public CLI source, tests, and release-ready npm package
 - [x] Secure web sign-in
 - [x] Claude Code and Codex connection helpers
 - [x] Isolated OpenCode launcher
@@ -111,6 +138,8 @@ Roadmap items are directional and do not promise a release date. Follow [Discuss
 - Report reproducible CLI bugs with the [bug template](.github/ISSUE_TEMPLATE/bug_report.yml).
 - Suggest integrations or workflows with the [feature template](.github/ISSUE_TEMPLATE/feature_request.yml).
 - Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.
+- Use [SUPPORT.md](SUPPORT.md) to choose the correct public or private support channel.
+- Track release gates in the [product roadmap](docs/roadmap.md).
 
 ## License and trademarks
 

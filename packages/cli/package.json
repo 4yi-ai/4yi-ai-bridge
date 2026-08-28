@@ -1,0 +1,47 @@
+{
+  "name": "@4yi/cli",
+  "version": "0.2.0",
+  "description": "Securely connect Claude Code, Codex, and OpenCode to 4YI AI Bridge",
+  "type": "module",
+  "bin": {
+    "4yi": "bin/4yi.mjs"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "smoke": "node bin/4yi.mjs --version && node bin/4yi.mjs --help",
+    "pack:dry": "npm pack --dry-run"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "keywords": [
+    "4yi",
+    "ai",
+    "llm",
+    "cli",
+    "claude-code",
+    "codex",
+    "opencode",
+    "openai-compatible"
+  ],
+  "homepage": "https://github.com/4yi-ai/4yi-ai-bridge#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/4yi-ai/4yi-ai-bridge.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/4yi-ai/4yi-ai-bridge/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "license": "MIT"
+}
