@@ -311,7 +311,7 @@ test("desktop apps are detected and reported without being installed", () => {
   const detected = __testing.reportDesktopApp("claude", {
     home: "/Users/tester",
     platform: "darwin",
-    exists: (candidate) => candidate === "/Applications/Claude.app",
+    exists: (candidate) => candidate === path.join("/Applications", "Claude.app"),
     stdout: (line) => lines.push(line),
   });
   assert.equal(detected, true);

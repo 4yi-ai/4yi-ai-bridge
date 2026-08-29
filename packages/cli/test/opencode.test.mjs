@@ -123,10 +123,10 @@ test("opencodeEnv isolates OpenCode state under the 4yi home", () => {
   assert.equal(env.FOURYI_CLI_TOKEN, "tok_cli");
   assert.equal(env.FOURYI_ORG_ID, "org_1");
   assert.equal(env.OPENCODE_CONFIG, "/tmp/fouryi-home/.4yi/opencode/opencode.json");
-  assert.equal(env.XDG_CONFIG_HOME, "/tmp/fouryi-home/.4yi/opencode/xdg/config");
-  assert.equal(env.XDG_DATA_HOME, "/tmp/fouryi-home/.4yi/opencode/xdg/data");
-  assert.equal(env.XDG_CACHE_HOME, "/tmp/fouryi-home/.4yi/opencode/xdg/cache");
-  assert.equal(env.XDG_STATE_HOME, "/tmp/fouryi-home/.4yi/opencode/xdg/state");
+  assert.equal(env.XDG_CONFIG_HOME, path.join("/tmp/fouryi-home", ".4yi", "opencode", "xdg", "config"));
+  assert.equal(env.XDG_DATA_HOME, path.join("/tmp/fouryi-home", ".4yi", "opencode", "xdg", "data"));
+  assert.equal(env.XDG_CACHE_HOME, path.join("/tmp/fouryi-home", ".4yi", "opencode", "xdg", "cache"));
+  assert.equal(env.XDG_STATE_HOME, path.join("/tmp/fouryi-home", ".4yi", "opencode", "xdg", "state"));
   assert.equal(env.PATH, "/bin");
 });
 

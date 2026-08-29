@@ -13,7 +13,7 @@ test("doctor passes required checks and never prints the token", () => {
     const lines = [];
     const report = runDoctor({
       home,
-      platform: "linux",
+      platform: process.platform,
       nodeVersion: "20.19.0",
       spawn: (command) => ({ status: command === "claude" ? 0 : 1 }),
       stdout: (line) => lines.push(line),
