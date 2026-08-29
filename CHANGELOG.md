@@ -7,6 +7,7 @@ All notable public client changes are documented here. Versions follow semantic 
 ### Fixed
 
 - Allow the reviewed, version-pinned `opencode-ai@1.18.25` install script so `4yi code` can prepare its platform binary under npm 12.
+- Keep documentation link checks compatible with npmjs bot protection and current GitHub Actions runtimes.
 
 ## [0.2.0-beta.1] - 2026-08-28
 
