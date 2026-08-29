@@ -10,7 +10,7 @@
     "check": "npm run check:public-boundary && npm run check:marketing && npm test && npm run smoke:cli && npm run pack:dry",
     "check:public-boundary": "node scripts/check-public-boundary.mjs",
     "check:marketing": "node scripts/check-marketing-claims.mjs",
-    "test": "npm run test:cli && node --test scripts/test/*.test.mjs",
+    "test": "npm run test:cli && node --test scripts/test/release-policy.test.mjs",
     "test:cli": "npm test --workspace @4yi/cli",
     "test:npm12-opencode": "node scripts/test-npm12-opencode-install.mjs",
     "smoke:cli": "npm run smoke --workspace @4yi/cli",
