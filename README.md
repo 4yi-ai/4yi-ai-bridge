@@ -23,7 +23,7 @@
 <p align="center">
   <a href="https://app.4yi.ai/code?utm_source=github&utm_medium=repo_readme&utm_campaign=4yi-ai-bridge"><strong>Get your API key</strong></a>
   ·
-  <a href="https://www.4yi.ai/pricing?utm_source=github&utm_medium=repo_readme&utm_campaign=4yi-ai-bridge">Full model pricing</a>
+  <a href="https://www.4yi.ai/pricing?utm_source=github&utm_medium=repo_readme&utm_campaign=4yi-ai-bridge">View Coding Plan Offer</a>
   ·
   <a href="docs/architecture.md">How it works</a>
 </p>
